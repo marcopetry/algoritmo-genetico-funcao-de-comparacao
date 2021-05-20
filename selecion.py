@@ -19,7 +19,6 @@ def selection(populacao):
 
     count += 1
   
-  print(array_ref_member_crossover)
   for index_member in array_ref_member_crossover:
     crossover_members.append(populacao[index_member])
   
