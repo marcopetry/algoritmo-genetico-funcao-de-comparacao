@@ -1,34 +1,15 @@
-import utils
 from Person import getAtributesPerson
 from Formula import Formula
-import random
+from utils import getOperators
 
-def initial_population():
-  populacao = []
-
-  atributesPersons = getAtributesPerson()
-  operators = ['+', '-', '*', '/', '^']
-  # weights = [1, 2, 3, 4]
+def initial_population(persons, qtd_individuos):
   formulas = []
-
   i = 0
 
-  while i < 50:
-    atributes = atributesPersons.copy()
-    random.shuffle(atributes)
-    formula = ''
-    while len(atributes) > 0:
-      sortNumber = random.randrange(0, len(atributes))
-      atribute = atributes[sortNumber]
-      atributes.remove(atribute)
-
-      sortNumber = random.randrange(0, len(operators))
-      if(len(atributes) > 0):
-        formula = formula + atribute + operators[sortNumber]
-      else:
-        formula = formula + atribute
-
-    formulas.append(Formula(formula))  
+  while i < qtd_individuos:
+    formula = Formula(persons)
+    formula.createFormula()
+    formulas.append(formula)  
     i += 1
   return formulas
 

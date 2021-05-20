@@ -44,7 +44,7 @@ def getAllPersons():
 
 
 def getAtributesPerson():
-  return ['totalHeartbeat', 'maxHearbeat', 'minHearbeat', 'mediaHeartbeat', 'desvioPadraoHeartbeat', 'amountEmotion', 'amountFramesEmotion']
+  return ['maxHearbeat', 'minHearbeat', 'mediaHeartbeat', 'desvioPadraoHeartbeat', 'amountEmotion', 'amountFramesEmotion']
 
 class Person:
   def __init__(self, id, totalHeartbeat, maxHearbeat, minHearbeat, mediaHeartbeat, desvioPadraoHeartbeat, amountEmotion, amountFramesEmotion):
@@ -55,7 +55,7 @@ class Person:
     self.mediaHeartbeat = mediaHeartbeat
     self.desvioPadraoHeartbeat = desvioPadraoHeartbeat
     self.amountEmotion = amountEmotion
-    self.amountFramesEmotion = amountFramesEmotion
+    self.amountFramesEmotion = amountFramesEmotion    
     self.priority = None
   
   def getPerson(self):
@@ -63,6 +63,9 @@ class Person:
 
   def setPriority(self, priority):
     self.priority = priority
+
+  def printPriority(self):
+    print('Prioridade de ', self.priority)
 
   def printPerson(self):
     print('Total batimentos ' + str(self.totalHeartbeat))
