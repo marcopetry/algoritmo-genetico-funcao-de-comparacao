@@ -12,7 +12,7 @@ def selection(populacao):
 
 
   # aplicada estratégia do torneio
-  while count < int(len(populacao) / 2): # seleciona pelo método torneio metade dos melhores membros com as melhores aptidões
+  while count < int(len(populacao) - 20): # seleciona pelo método torneio metade dos melhores membros com as melhores aptidões
     number = randomInt(10, int((len(populacao) / 2)))
     
     array_ref_member_crossover.append(number)

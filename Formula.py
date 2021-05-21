@@ -1,4 +1,4 @@
-from utils import getOperators
+from utils import getOperators, randomInt
 from Person import getAtributesPerson
 import random
 
@@ -16,6 +16,7 @@ class Formula:
     random.shuffle(atributes)
     formula = ''
     count = 0
+    corte_crossover = randomInt(2, 4)
     try:
       while len(atributes) > 0 and count < 3: #Pega todos os atributos e se gerar forma inválida ele tenta mais 2 vezes gerar um fórmula matemática válida
         sortNumber = random.randrange(0, len(atributes))
@@ -27,23 +28,31 @@ class Formula:
           formula = formula + atribute + operators[sortNumber]
         else:
           formula = formula + atribute
+        
+        
+        if len(atributes) == corte_crossover:
+          formula = formula + '|' # usado para fazer o corte na fórmula na hora de cruzar
         self.formula = formula
-        self.calcPriorityPerson()
-    except:      
+
+      self.calcPriorityPerson()
+    except:
+      count += 1
       self.createFormula()
     self.formula = formula
 
   def setFormula(self, formula):
     self.formula = formula
   
+  def printFormula(self):
+    print(self.formula.replace('|', ''))
+  
   def calcPriorityPerson(self):
     atributes = getAtributesPerson()
    
     for person in self.persons:
-      formulaComNumeros = self.formula
+      formulaComNumeros = self.formula.replace('|', '')
       for attr in atributes:
         formulaComNumeros = formulaComNumeros.replace(attr, str(getattr(person, attr)))
-          
       try:
         calcValue = eval(formulaComNumeros)
         if calcValue < 0:
