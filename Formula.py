@@ -24,8 +24,9 @@ class Formula:
         atributes.remove(atribute)
 
         sortNumber = random.randrange(0, len(operators))
+        sortNumber_two = random.randrange(0, len(operators))
         if(len(atributes) > 0):
-          formula = formula + atribute + operators[sortNumber]
+          formula = formula + '(' + atribute + operators[sortNumber] + str(randomInt(0, 5)) + ')' + operators[sortNumber_two]
         else:
           formula = formula + atribute
         
@@ -44,7 +45,7 @@ class Formula:
     self.formula = formula
   
   def printFormula(self):
-    print(self.formula.replace('|', ''))
+    print(self.formula)
   
   def calcPriorityPerson(self):
     atributes = getAtributesPerson()
@@ -77,18 +78,43 @@ class Formula:
       try:
         self.calcPriorityPerson()
         self.sortPersons()
+        #lista com os ids das pessoas ordenado por prioridade
         individuos_priorities = map(lambda ind : int(ind.id), self.persons)
-        
-        fitness = 1
 
+        #lista com os elementos repetidos tratada
+        qtd_priorities = list(map(lambda ind : int(ind.split(';')[1]), list_corretct_priority))
+        
+        fitness = 0
+        
         list_priority_convert = list(individuos_priorities)
 
         for ind in list_corretct_priority:
           (id_individuo_correto, priority_correct) = ind.split(';')
           
-          diff_index = list_priority_convert.index(int(id_individuo_correto)) - int(priority_correct) - 1
+          # distancia dos itens levando em consideração a quantidade de elementos repetidos da posição
+          diff_index = list_priority_convert.index(int(id_individuo_correto)) - int(priority_correct) - 1 - qtd_priorities.count(priority_correct)
 
-          fitness = fitness + (diff_index if diff_index > 0 else diff_index * -1)          
+          # penalidade_distance = 0
+
+          if diff_index < 0:
+            diff_index *= -1
+
+          # if diff_index < 5 and diff_index > 0:
+          #   penalidade_distance = 1
+          
+          # if diff_index >= 5 and diff_index < 10 and diff_index > 0:
+          #   penalidade_distance = 1.5
+          
+          # if diff_index >= 10 and diff_index < 20 and diff_index > 0:
+          #   penalidade_distance = 2
+          
+          # if diff_index >= 20 and diff_index < 30 and diff_index > 0:
+          #   penalidade_distance = 3
+          
+          # if diff_index > 30 and diff_index > 0:
+          #   penalidade_distance = 5
+
+          fitness = fitness + diff_index 
 
         self.fitnessValue = round(fitness / len(list_priority_convert), 3)
         

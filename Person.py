@@ -1,5 +1,5 @@
 from utils import getContentEmotions, getContentHeart
-
+import math
 def getAllPersons():  
   persons = []
   i = 0
@@ -35,8 +35,17 @@ def getAllPersons():
 
       if(heartBeat < minHeartBeat):
         minHeartBeat = heartBeat
+    
+    variancia = 0
+    mediaHeartBeat = totalHeartbeats / totalCountHeartBeats
+    for line in linesHeartbeats:
+      line = line.replace('\n', '').split(',')
+      heartBeat = int(line[1])
+      variancia = variancia + ((heartBeat - mediaHeartBeat)** 2)
+    
+    desvioPadrao = math.sqrt((variancia / (totalCountHeartBeats - 1)))
 
-    person = Person(i + 1, totalHeartbeats, maxHeartBeat, minHeartBeat, totalHeartbeats / totalCountHeartBeats, 0, qtdEmotions, qtdFramesMotion)
+    person = Person(i + 1, totalHeartbeats, maxHeartBeat, minHeartBeat, mediaHeartBeat, desvioPadrao, qtdEmotions, qtdFramesMotion)
     persons.append(person)
 
     i += 1

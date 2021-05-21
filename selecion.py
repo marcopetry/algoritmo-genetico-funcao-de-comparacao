@@ -4,7 +4,6 @@ from utils import randomInt
 def selection(populacao):
   ten_best_members = populacao[:10] # elitismo, permanecer 10 melhores membros
   mutation_members = populacao[len(populacao) - 10:] # piores membros sofrerão mutação
-
   crossover_members = []
 
   array_ref_member_crossover = []
